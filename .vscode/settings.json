@@ -1,0 +1,15 @@
+{
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "keras",
+            "includeAllSymbols": true,
+            "depth": 20
+        },
+        {
+            "name": "tensorflow",
+            "includeAllSymbols": true,
+            "depth": 20
+        }
+    ],
+}
