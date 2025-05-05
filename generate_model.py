@@ -1,7 +1,10 @@
+from keras.api.preprocessing import image_dataset_from_directory
 import tensorflow as tf
 from keras import layers
+from tensorflow.python.keras import Sequential
+from tensorflow.python.keras.losses import SparseCategoricalCrossentropy
 # 1) Carregamento dos datasets: substitua pelas suas pastas
-train_ds = tf.keras.utils.image_dataset_from_directory(
+train_ds = image_dataset_from_directory(
     'data/train',            # ← seu diretório de treino
     labels='inferred',
     label_mode='int',
@@ -9,7 +12,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
     image_size=(240, 240),
     batch_size=32)
 
-val_ds = tf.keras.utils.image_dataset_from_directory(
+val_ds = image_dataset_from_directory(
     'data/valid',            # ← seu diretório de validação
     labels='inferred',
     label_mode='int',
@@ -17,7 +20,7 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
     image_size=(240, 240),
     batch_size=32)
 
-test_ds = tf.keras.utils.image_dataset_from_directory(
+test_ds = image_dataset_from_directory(
     'data/test',             # ← seu diretório de teste
     labels='inferred',
     label_mode='int',
@@ -29,7 +32,7 @@ test_ds = tf.keras.utils.image_dataset_from_directory(
 num_classes = 2  # ← apenas duas classes: solved vs unsolved
 
 # Exemplo no bloco de construção do modelo:
-model = tf.keras.Sequential([
+model = Sequential([
     layers.Rescaling(1./255, input_shape=(240, 240, 3)),
     # ... (camadas intermediárias do tutorial) ...
     layers.Flatten(),
@@ -40,7 +43,7 @@ model = tf.keras.Sequential([
 # 3) Escolha da função de perda adequada
 model.compile(
     optimizer='adam',
-    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),  # ← mantém 'from_logits=True'
+    loss=SparseCategoricalCrossentropy(from_logits=True),  # ← mantém 'from_logits=True'
     metrics=['accuracy']
 )
 
